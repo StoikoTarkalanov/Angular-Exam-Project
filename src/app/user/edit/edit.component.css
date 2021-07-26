@@ -1,20 +1,20 @@
-.form-register {
+.form-edit {
   text-align: center;
-  max-width: 1000px;
+  max-width: 4000px;
   width: 100%;
   margin: 0 auto;
   font: bold 14px sans-serif;
 }
 
-.form-register-with-email {
+.form-edit-with-data {
   position: relative;
   display: inline-block;
   vertical-align: top;
   text-align: center;
 }
 
-.form-register-with-email .form-white-background {
-  width: 570px;
+.form-edit-with-data .form-white-background {
+  width: 970px;
   box-sizing: border-box;
   background-color: #ffffff;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -22,17 +22,17 @@
   margin-bottom: 35px;
 }
 
-.form-register-with-email .form-row {
+.form-edit-with-data .form-row {
   text-align: center;
   margin-bottom: 23px;
 }
 
-.form-register-with-email .form-title-row {
+.form-edit-with-data .form-title-row {
   text-align: center;
   margin-bottom: 50px;
 }
 
-.form-register-with-email h1 {
+.form-edit-with-data h1 {
   display: inline-block;
   box-sizing: border-box;
   color: #4c565e;
@@ -42,25 +42,25 @@
   margin: 0;
 }
 
-.form-register-with-email .form-row>label span {
+.form-edit-with-data .form-row>label span {
   display: inline-block;
   box-sizing: border-box;
   color: #5f5f5f;
-  width: 125px;
+  width: 625px;
   text-align: right;
   padding-right: 25px;
 }
 
-.form-register-with-email input {
+.form-edit-with-data input {
   color: #5f5f5f;
   box-sizing: border-box;
-  width: 230px;
+  width: 630px;
   box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
   padding: 12px 18px;
   border: 1px solid #dbdbdb;
 }
 
-.form-register-with-email button {
+.form-edit-with-data button {
   display: block;
   border-radius: 2px;
   background-color: #6caee0;
@@ -71,12 +71,4 @@
   border: 0;
   margin: 55px auto 0;
   cursor: pointer;
-}
-
-.form-register-with-email .form-log-in-with-existing {
-  text-decoration: none;
-  padding: 4px 8px;
-  font-weight: normal;
-  color: #7b9d62;
-  background-color: #d6f0c3;
 }
