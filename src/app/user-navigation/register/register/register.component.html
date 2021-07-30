@@ -1,20 +1,53 @@
-<form class="form-register" method="post" action="#">
+<form class="form-register" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-register-with-email">
     <div class="form-white-background">
       <div class="form-title-row">
         <h1>Create an account</h1>
       </div>
       <div class="form-row">
-          <input type="text" name="name" placeholder="Name">
+        <input type="text" name="name" placeholder="Name" formControlName="name"
+          [ngClass]="{'invalid': (registerForm.get('name').touched || registerForm.get('name').dirty) && !registerForm.get('name').valid}">
+        <span class="error-message" *ngIf="registerForm.get('name').dirty">
+          <span *ngIf="registerForm.get('name').errors?.required">
+            Field is required
+          </span>
+          <span *ngIf="registerForm.get('name').errors?.minlength">
+            Minimum lenght is 3 characters
+          </span>
+        </span>
       </div>
-      <div class="form-row">
-          <input type="password" name="password" placeholder="Password">
+
+      <div formGroupName="passwordsGroup">
+        <div class="form-row">
+          <input type="password" name="password" placeholder="Password" formControlName="password" [ngClass]="{'invalid': registerForm.get('passwordsGroup').errors ||
+                ((registerForm.get('passwordsGroup.password').touched ||
+                registerForm.get('passwordsGroup.password').dirty) &&
+                !registerForm.get('passwordsGroup.password').valid)}">
+          <span class="error-message" *ngIf="registerForm.get('passwordsGroup.password').dirty">
+            <span *ngIf="registerForm.get('passwordsGroup.password').errors?.required">
+              Field is required
+            </span>
+            <span *ngIf="registerForm.get('passwordsGroup.password').errors?.minlength">
+              Password must be at least 6 characters long
+            </span>
+          </span>
+        </div>
+        <div class="form-row">
+          <input type="password" name="rePass" placeholder="Confirm Password" formControlName="repeatPassword"
+            [ngClass]="{'invalid': registerForm.get('passwordsGroup').errors ||
+                ((registerForm.get('passwordsGroup.repeatPassword').touched ||
+                registerForm.get('passwordsGroup.repeatPassword').dirty) &&
+                !registerForm.get('passwordsGroup.repeatPassword').valid)}">
+          <span class="error-message" *ngIf="registerForm.get('passwordsGroup.repeatPassword').dirty">
+            <span *ngIf="registerForm.get('passwordsGroup').errors?.isMatch">
+              Passwords don't match
+            </span>
+          </span>
+        </div>
       </div>
+
       <div class="form-row">
-          <input type="password" name="rePass" placeholder="Confirm Password">
-      </div>
-      <div class="form-row">
-        <button type="submit">Register</button>
+        <button type="submit" [disabled]="!registerForm.valid">Register</button>
       </div>
       <a routerLink="/login" class="form-log-in-with-existing">Already have an account? Login here &rarr;</a>
     </div>
