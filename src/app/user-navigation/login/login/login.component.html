@@ -1,17 +1,38 @@
-<form class="form-register" method="post" action="#">
-  <div class="form-register-with-email">
+<form class="form-login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-login-with-email">
     <div class="form-white-background">
       <div class="form-title-row">
         <h1>Login</h1>
       </div>
       <div class="form-row">
-          <input type="text" name="name" placeholder="Name">
+        <input type="text" name="name" placeholder="Name" formControlName="name"
+          [ngClass]="{'invalid': (loginForm.get('name')!.touched || loginForm.get('name')!.dirty) && !loginForm.get('name')!.valid}">
+        <div class="error-message" *ngIf="loginForm.get('name')!.dirty">
+          <span *ngIf="loginForm.get('name')!.errors?.required">
+            Field is required
+          </span>
+          <span *ngIf="loginForm.get('name')!.errors?.maxlength">
+            Maximum lenght is 20 characters
+          </span>
+          <span *ngIf="loginForm.get('name')!.errors?.minlength">
+            Minimum lenght is 3 characters
+          </span>
+        </div>
       </div>
       <div class="form-row">
-          <input type="password" name="password" placeholder="Password">
+        <input type="password" name="password" placeholder="Password" formControlName="password"
+          [ngClass]="{'invalid': (loginForm.get('password')!.touched || loginForm.get('password')!.dirty) && !loginForm.get('password')!.valid}">
+        <div class="error-message" *ngIf="loginForm.get('password')!.dirty">
+          <span *ngIf="loginForm.get('password')!.errors?.required">
+            Field is required
+          </span>
+          <span *ngIf="loginForm.get('password')!.errors?.minlength">
+            Password must be at least 6 characters long
+          </span>
+        </div>
       </div>
       <div class="form-row">
-        <button type="submit">Login</button>
+        <button type="submit" [disabled]="!loginForm.valid">Login</button>
       </div>
       <a routerLink="/register" class="form-log-in-with-existing">Don't have account? Register here &rarr;</a>
     </div>

@@ -5,11 +5,11 @@ function isMatch(c: AbstractControl): { [key: string]: boolean } | null {
   let passwordControl = c.get('password');
   let confirmControl = c.get('repeatPassword');
 
-  if (passwordControl.pristine || confirmControl.pristine) {
+  if (passwordControl!.pristine || confirmControl!.pristine) {
     return null;
   }
 
-  if (passwordControl.value === confirmControl.value) {
+  if (passwordControl!.value === confirmControl!.value) {
     return null;
   }
 
@@ -22,7 +22,7 @@ function isMatch(c: AbstractControl): { [key: string]: boolean } | null {
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm!: FormGroup;
   submitted = false;
 
   constructor(private formBuilder: FormBuilder) { }

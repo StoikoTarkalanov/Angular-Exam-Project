@@ -80,3 +80,8 @@
   color: #7b9d62;
   background-color: #d6f0c3;
 }
+
+.error-message {
+  /* float: left; */
+  color: red;
+}
