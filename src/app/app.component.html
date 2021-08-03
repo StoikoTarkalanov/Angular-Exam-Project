@@ -1,3 +1,9 @@
-<app-navigation></app-navigation>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<ng-container *ngIf="isAuth">
+<app-loader></app-loader>
+</ng-container>
+
+<ng-container *ngIf="!isAuth">
+  <app-navigation></app-navigation>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</ng-container>

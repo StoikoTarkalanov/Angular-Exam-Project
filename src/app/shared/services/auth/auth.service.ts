@@ -1,23 +1,49 @@
 import { Injectable } from '@angular/core';
+import { IUser } from '../../interfaces/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  user: IUser | null | undefined = undefined;
 
-  registerUrl = 'https://parseapi.back4app.com/classes/users';
+  get isUserLogged(): boolean {
+    return !!this.user;
+  }
 
+  serverURL = environment.serverURL;
   constructor(private http: HttpClient) { }
 
-  register(model: any) {
-    const headers = new HttpHeaders({
-      'X-Parse-Application-Id': 'BCrUQVkk80pCdeImSXoKXL5ZCtyyEZwbN7mAb11f',
-      'X-Parse-REST-API-Key': 'swrFFIXJlFudtF3HkZPtfybDFRTmS7sPwvGUzQ9w',
-      'Content-Type': 'application/json'
-    });
-    const options = { headers };
-    return this.http.post(this.registerUrl, model, options);
+  headers = new HttpHeaders({
+    'X-Parse-Application-Id': 'N6ZatMb3uAHX4UTQwr3QinDCHxkmBEkK5DdkXbaW',
+    'X-Parse-REST-API-Key': 'h943r4OXk0J023y3ndlaAcY0urbapLTw10LJoOtn',
+    'X-Parse-Revocable-Session': '1',
+    'Content-Type': 'application/json'
+  });
+  options = { headers: this.headers };
+
+  // tslint:disable-next-line: typedef
+  getUserData() {
+    return this.http.get<IUser>(`${this.serverURL}/classes/Users`, this.options).pipe(
+      tap(user => this.user = user)
+    );
+  }
+
+  // tslint:disable-next-line: typedef
+  register(content: { name: string, password: string }) {
+    return this.http.post<IUser>(`${this.serverURL}/classes/Users`, content, this.options).pipe(
+      tap(user => this.user = user)
+    );
+  }
+
+  // tslint:disable-next-line: typedef
+  logout() {
+    // need to set users in sessin or localStorage
+    return this.http.delete<IUser>(`${this.serverURL}/classes/Users`, this.options).pipe(
+      tap(user => this.user = null)
+    );
   }
 }

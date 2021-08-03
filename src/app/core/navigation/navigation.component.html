@@ -8,18 +8,18 @@
         <i class="fa fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ms-auto py-4 py-lg-0" *ngIf="user">
+        <ul class="navbar-nav ms-auto py-4 py-lg-0" *ngIf="!isLogged">
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/">Home</a></li>
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/login">Login</a></li>
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/register">Register</a></li>
         </ul>
 
-        <ul class="navbar-nav ms-auto py-4 py-lg-0" *ngIf="!user">
+        <ul class="navbar-nav ms-auto py-4 py-lg-0" *ngIf="isLogged">
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/">Home</a></li>
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/my-books">My books</a></li>
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/create-book">Create Book</a>
           </li>
-          <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/logout">Logout</a></li>
+          <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" (click)="onLogout()">Logout</a></li>
         </ul>
       </div>
     </div>

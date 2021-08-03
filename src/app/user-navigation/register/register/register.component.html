@@ -19,32 +19,29 @@
           </span>
         </div>
       </div>
-      <div formGroupName="passwordsGroup">
-        <div class="form-row">
-          <input type="password" name="password" placeholder="Password" formControlName="password" [ngClass]="{'invalid': registerForm.get('passwordsGroup')!.errors ||
-                ((registerForm.get('passwordsGroup.password')!.touched ||
-                registerForm.get('passwordsGroup.password')!.dirty) &&
-                !registerForm.get('passwordsGroup.password')!.valid)}">
-          <div class="error-message" *ngIf="registerForm.get('passwordsGroup.password')!.dirty">
-            <span *ngIf="registerForm.get('passwordsGroup.password')!.errors?.required">
-              Field is required
-            </span>
-            <span *ngIf="registerForm.get('passwordsGroup.password')!.errors?.minlength">
-              Password must be at least 6 characters long
-            </span>
-          </div>
+      <div class="form-row">
+        <input type="password" name="password" placeholder="Password" formControlName="password" [ngClass]="{'invalid':
+                ((registerForm.get('password')!.touched ||
+                registerForm.get('password')!.dirty) &&
+                !registerForm.get('password')!.valid)}">
+        <div class="error-message" *ngIf="registerForm.get('password')!.dirty">
+          <span *ngIf="registerForm.get('password')!.errors?.required">
+            Field is required
+          </span>
+          <span *ngIf="registerForm.get('password')!.errors?.minlength">
+            Password must be at least 6 characters long
+          </span>
         </div>
-        <div class="form-row">
-          <input type="password" name="rePass" placeholder="Confirm Password" formControlName="repeatPassword"
-            [ngClass]="{'invalid': registerForm.get('passwordsGroup')!.errors ||
-                ((registerForm.get('passwordsGroup.repeatPassword')!.touched ||
-                registerForm.get('passwordsGroup.repeatPassword')!.dirty) &&
-                !registerForm.get('passwordsGroup.repeatPassword')!.valid)}">
-          <div class="error-message" *ngIf="registerForm.get('passwordsGroup.repeatPassword')!.dirty">
-            <span *ngIf="registerForm.get('passwordsGroup')!.errors?.isMatch">
-              Passwords don't match
-            </span>
-          </div>
+      </div>
+      <div class="form-row">
+        <input type="password" name="rePass" placeholder="Confirm Password" formControlName="repeatPassword" [ngClass]="{'invalid':
+                ((registerForm.get('repeatPassword')!.touched ||
+                registerForm.get('repeatPassword')!.dirty) &&
+                !registerForm.get('repeatPassword')!.valid)}">
+        <div class="error-message" *ngIf="registerForm.get('repeatPassword')!.dirty">
+          <span *ngIf="registerForm.get('repeatPassword')!.errors?.isMatch">
+            Passwords don't match
+          </span>
         </div>
       </div>
       <div class="form-row">

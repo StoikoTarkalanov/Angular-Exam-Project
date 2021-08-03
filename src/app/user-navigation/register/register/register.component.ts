@@ -1,51 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { passwordValidator } from 'src/app/shared/services/validators';
+import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-
-function isMatch(c: AbstractControl): { [key: string]: boolean } | null {
-  const passwordControl = c.get('password');
-  const confirmControl = c.get('repeatPassword');
-
-  if (passwordControl.pristine || confirmControl.pristine) {
-    return null;
-  }
-
-  if (passwordControl.value === confirmControl.value) {
-    return null;
-  }
-
-  return { isMatch: true };
-}
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   submitted = false;
 
+  killSubscription = new Subject();
+
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      passwordsGroup: this.formBuilder.group({
-        password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-        repeatPassword: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
-      }, { validator: isMatch })
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      // tslint:disable-next-line: max-line-length
+      repeatPassword: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20), passwordValidator(() => this.registerForm?.get('password'), this.killSubscription)]]
     });
   }
 
-  onSubmit() {
-    const registerObserver = {
-      next: x => console.log('User created'),
-      error: err => console.log(err)
-    };
-    this.authService.register(this.registerForm.value).subscribe(registerObserver);
+  onSubmit(): void {
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.authService.register(this.registerForm.value).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.killSubscription.next();
+    this.killSubscription.complete();
   }
 }
