@@ -8,7 +8,8 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-  get isLogged(): boolean {
+  // tslint:disable-next-line: typedef
+  get isLogged() {
     return this.authService.isUserLogged;
   }
 

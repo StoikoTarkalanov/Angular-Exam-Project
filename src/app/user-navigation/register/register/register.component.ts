@@ -12,8 +12,6 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
-  submitted = false;
-
   killSubscription = new Subject();
 
   constructor(
@@ -24,7 +22,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       // tslint:disable-next-line: max-line-length
       repeatPassword: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20), passwordValidator(() => this.registerForm?.get('password'), this.killSubscription)]]

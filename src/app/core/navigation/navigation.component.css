@@ -451,6 +451,10 @@ header.masthead .post-heading .meta a {
   color: #0085A1;
 }
 
+.nav-item:hover {
+  cursor: pointer;
+}
+
 .nav-link.disabled {
   color: #6c757d;
   pointer-events: none;

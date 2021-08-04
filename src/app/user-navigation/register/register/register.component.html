@@ -5,16 +5,16 @@
         <h1>Create an account</h1>
       </div>
       <div class="form-row">
-        <input type="text" name="name" placeholder="Name" formControlName="name"
-          [ngClass]="{'invalid': (registerForm.get('name')!.touched || registerForm.get('name')!.dirty) && !registerForm.get('name')!.valid}">
-        <div class="error-message" *ngIf="registerForm.get('name')!.dirty">
-          <span *ngIf="registerForm.get('name')!.errors?.required">
+        <input type="text" name="username" placeholder="Nickname" formControlName="username"
+          [ngClass]="{'invalid': (registerForm.get('username')!.touched || registerForm.get('username')!.dirty) && !registerForm.get('username')!.valid}">
+        <div class="error-message" *ngIf="registerForm.get('username')!.dirty">
+          <span *ngIf="registerForm.get('username')!.errors?.required">
             Field is required
           </span>
-          <span *ngIf="registerForm.get('name')!.errors?.maxlength">
+          <span *ngIf="registerForm.get('username')!.errors?.maxlength">
             Maximum lenght is 20 characters
           </span>
-          <span *ngIf="registerForm.get('name')!.errors?.minlength">
+          <span *ngIf="registerForm.get('username')!.errors?.minlength">
             Minimum lenght is 3 characters
           </span>
         </div>

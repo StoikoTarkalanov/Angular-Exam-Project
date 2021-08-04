@@ -5,16 +5,16 @@
         <h1>Login</h1>
       </div>
       <div class="form-row">
-        <input type="text" name="name" placeholder="Name" formControlName="name"
-          [ngClass]="{'invalid': (loginForm.get('name')!.touched || loginForm.get('name')!.dirty) && !loginForm.get('name')!.valid}">
-        <div class="error-message" *ngIf="loginForm.get('name')!.dirty">
-          <span *ngIf="loginForm.get('name')!.errors?.required">
+        <input type="text" name="username" placeholder="Nickname" formControlName="username"
+          [ngClass]="{'invalid': (loginForm.get('username')!.touched || loginForm.get('username')!.dirty) && !loginForm.get('username')!.valid}">
+        <div class="error-message" *ngIf="loginForm.get('username')!.dirty">
+          <span *ngIf="loginForm.get('username')!.errors?.required">
             Field is required
           </span>
-          <span *ngIf="loginForm.get('name')!.errors?.maxlength">
+          <span *ngIf="loginForm.get('username')!.errors?.maxlength">
             Maximum lenght is 20 characters
           </span>
-          <span *ngIf="loginForm.get('name')!.errors?.minlength">
+          <span *ngIf="loginForm.get('username')!.errors?.minlength">
             Minimum lenght is 3 characters
           </span>
         </div>
