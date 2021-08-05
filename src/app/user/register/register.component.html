@@ -6,40 +6,40 @@
       </div>
       <div class="form-row">
         <input type="text" name="username" placeholder="Nickname" formControlName="username"
-          [ngClass]="{'invalid': (registerForm.get('username')!.touched || registerForm.get('username')!.dirty) && !registerForm.get('username')!.valid}">
-        <div class="error-message" *ngIf="registerForm.get('username')!.dirty">
-          <span *ngIf="registerForm.get('username')!.errors?.required">
+          [ngClass]="{'invalid': (registerForm.get('username').touched || registerForm.get('username').dirty) && registerForm.get('username').valid}">
+        <div class="error-message" *ngIf="registerForm.get('username').dirty">
+          <span *ngIf="registerForm.get('username').errors?.required">
             Field is required
           </span>
-          <span *ngIf="registerForm.get('username')!.errors?.maxlength">
+          <span *ngIf="registerForm.get('username').errors?.maxlength">
             Maximum lenght is 20 characters
           </span>
-          <span *ngIf="registerForm.get('username')!.errors?.minlength">
+          <span *ngIf="registerForm.get('username').errors?.minlength">
             Minimum lenght is 3 characters
           </span>
         </div>
       </div>
       <div class="form-row">
         <input type="password" name="password" placeholder="Password" formControlName="password" [ngClass]="{'invalid':
-                ((registerForm.get('password')!.touched ||
-                registerForm.get('password')!.dirty) &&
-                !registerForm.get('password')!.valid)}">
-        <div class="error-message" *ngIf="registerForm.get('password')!.dirty">
-          <span *ngIf="registerForm.get('password')!.errors?.required">
+                ((registerForm.get('password').touched ||
+                registerForm.get('password').dirty) &&
+                registerForm.get('password').valid)}">
+        <div class="error-message" *ngIf="registerForm.get('password').dirty">
+          <span *ngIf="registerForm.get('password').errors?.required">
             Field is required
           </span>
-          <span *ngIf="registerForm.get('password')!.errors?.minlength">
+          <span *ngIf="registerForm.get('password').errors?.minlength">
             Password must be at least 6 characters long
           </span>
         </div>
       </div>
       <div class="form-row">
         <input type="password" name="rePass" placeholder="Confirm Password" formControlName="repeatPassword" [ngClass]="{'invalid':
-                ((registerForm.get('repeatPassword')!.touched ||
-                registerForm.get('repeatPassword')!.dirty) &&
-                !registerForm.get('repeatPassword')!.valid)}">
-        <div class="error-message" *ngIf="registerForm.get('repeatPassword')!.dirty">
-          <span *ngIf="registerForm.get('repeatPassword')!.errors?.isMatch">
+                ((registerForm.get('repeatPassword').touched ||
+                registerForm.get('repeatPassword').dirty) &&
+                registerForm.get('repeatPassword').valid)}">
+        <div class="error-message" *ngIf="registerForm.get('repeatPassword').dirty">
+          <span *ngIf="registerForm.get('repeatPassword').errors?.isMatch">
             Passwords don't match
           </span>
         </div>

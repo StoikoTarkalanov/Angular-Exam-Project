@@ -1,4 +1,4 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -29,4 +29,23 @@ export function passwordValidator(getTargetControl: () => AbstractControl | null
 
     return targetControl?.value === control?.value ? null : { isMatch: true };
   };
+
 }
+
+// tslint:disable-next-line: typedef
+export function urlValidator(): ValidatorFn {
+
+  return (control: AbstractControl): ValidationErrors | null => {
+    const url = control.value;
+
+    if (url.substring(0, 8) === 'https://' || url.substring(0, 7) === 'http://') {
+      return null;
+    }
+
+    return { isUrl: true };
+  };
+}
+
+
+
+

@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
-import { UserNavModule } from './user-navigation/user.module';
 import { UserModule } from './user/user.module';
 import { ViewModule } from './views/view.module';
 import { SharedModule } from './shared/shared.module';
@@ -22,7 +21,6 @@ import { SharedModule } from './shared/shared.module';
     CoreModule,
     SharedModule,
     HttpClientModule,
-    UserNavModule,
     UserModule,
     ViewModule,
     AppRoutingModule,

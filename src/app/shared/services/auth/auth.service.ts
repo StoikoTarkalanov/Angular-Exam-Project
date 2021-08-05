@@ -10,13 +10,18 @@ import { environment } from '../../../../environments/environment';
 export class AuthService {
   user: IUser | null | undefined = undefined;
 
-  // tslint:disable-next-line: typedef
-  get isUserLogged() {
-    // console.log(sessionStorage.getItem('AuthToken'));
+  get isUserLogged(): string {
     return sessionStorage.getItem('AuthToken');
   }
 
-  // tslint:disable-next-line: member-ordering
+  get isUser(): boolean { // temp
+    return true;
+  }
+
+  get username(): string {
+    return sessionStorage.getItem('username');
+  }
+
   serverURL = environment.serverURL;
   constructor(
     private http: HttpClient,
@@ -30,19 +35,13 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
 
-    // may be need for session in back4app
-    // if (param === 'register') {
-    //   headers = headers.set('X-Parse-Revocable-Session', '1');
-    // } else
-
     const token = this.isUserLogged;
     if (token != null) {
-      console.log(token);
+      // console.log(token);
       headers = headers.set('X-Parse-Session-Token', `${token}`);
     }
 
     const options = { headers };
-    console.log(options);
     return options;
   }
 

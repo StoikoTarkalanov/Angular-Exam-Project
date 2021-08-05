@@ -13,6 +13,11 @@ export class NavigationComponent {
     return this.authService.isUserLogged;
   }
 
+  // tslint:disable-next-line: typedef
+  get username() {
+    return this.authService.username;
+  }
+
   onLogout(): void {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['/']);

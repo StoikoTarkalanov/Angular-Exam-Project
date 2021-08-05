@@ -1,17 +1,54 @@
-<form class="form-edit" method="post" action="#">
+<form class="form-edit" [formGroup]="editForm" (ngSubmit)="onSubmit()">
   <div class="form-edit-with-data">
     <div class="form-white-background">
       <div class="form-title-row">
         <h1>Edit Book</h1>
       </div>
       <div class="form-row">
-        <input type="text" name="name" placeholder="Book Name">
+        <input type="text" name="name" placeholder="Book Name" formControlName="name"
+          [ngClass]="{'invalid': (editForm.get('name').touched || editForm.get('name').dirty) && editForm.get('name').valid}">
+        <div class="error-message" *ngIf="editForm.get('name').dirty">
+          <span *ngIf="editForm.get('name').errors?.required">
+            Field is required
+          </span>
+          <span *ngIf="editForm.get('name').errors?.maxlength">
+            Maximum lenght is 40 characters
+          </span>
+          <span *ngIf="editForm.get('name').errors?.minlength">
+            Minimum lenght is 4 characters
+          </span>
+        </div>
       </div>
       <div class="form-row">
-        <input type="text" name="image" placeholder="Image URL">
+        <input type="text" name="image" placeholder="Image URL" formControlName="image"
+          [ngClass]="{'invalid': (editForm.get('image').touched || editForm.get('image').dirty) && editForm.get('image').valid}">
+        <div class="error-message" *ngIf="editForm.get('image').dirty">
+          <span *ngIf="editForm.get('image').errors?.required">
+            Field is required
+          </span>
+          <span *ngIf="editForm.get('image').errors?.isUrl">
+            URL is not valid
+          </span>
+          <span *ngIf="editForm.get('image').errors?.maxlength">
+            Maximum lenght is 2 048 characters
+          </span>
+        </div>
       </div>
       <div class="form-row">
-        <textarea name="content" cols="87" rows="10" placeholder="Conetnt Here"></textarea>
+        <textarea name="content" cols="87" rows="10" placeholder="Conetnt Here" formControlName="content"
+          [ngClass]="{'invalid': (editForm.get('content').touched || editForm.get('content').dirty) && editForm.get('content').valid}">
+    </textarea>
+        <div class="error-message" *ngIf="editForm.get('content').dirty">
+          <span *ngIf="editForm.get('content').errors?.required">
+            Field is required
+          </span>
+          <span *ngIf="editForm.get('content').errors?.maxlength">
+            Maximum lenght is 4 000 characters
+          </span>
+          <span *ngIf="editForm.get('content').errors?.minlength">
+            Maximum lenght is 200 characters
+          </span>
+        </div>
       </div>
       <div class="form-row">
         <button type="submit">Edit</button>
