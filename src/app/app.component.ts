@@ -14,10 +14,5 @@ export class AppComponent {
   }
 
   constructor(private authService: AuthService) {
-    // this.authService.getUserData().subscribe({
-    //   error: () => {
-    //     this.authService.user = null;
-    //   }
-    // });
   }
 }

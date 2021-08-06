@@ -10,40 +10,23 @@ import { EditComponent } from './edit/edit.component';
 const routes: Routes = [
   {
     path: 'register',
-    component: RegisterComponent,
-    data: {
-      authenticatinRequired: false
-    }
+    component: RegisterComponent
   },
   {
     path: 'login',
-    component: LoginComponent,
-    data: {
-      authenticatinRequired: false
-    }
+    component: LoginComponent
   },
   {
-    path: 'create-book',
-    component: CreateComponent,
-    data: {
-      authenticatinRequired: true
-    }
+    path: 'create-book', // add ID
+    component: CreateComponent
   },
   {
     path: 'my-books', // add ID
     component: MyBooksComponent,
-    // data: {
-    //   authenticatinRequired: true
-    // },
-    // children: [
-    // ]
   },
   {
     path: 'edit', // add ID
     component: EditComponent
-    // data: {
-    //   authenticatinRequired: true
-    // }
   }
 ];
 

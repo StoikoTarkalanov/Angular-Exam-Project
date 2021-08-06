@@ -12,7 +12,7 @@
             Field is required
           </span>
           <span *ngIf="createForm.get('name').errors?.maxlength">
-            Maximum lenght is 40 characters
+            Maximum lenght is 80 characters
           </span>
           <span *ngIf="createForm.get('name').errors?.minlength">
             Minimum lenght is 4 characters
@@ -26,11 +26,11 @@
           <span *ngIf="createForm.get('image').errors?.required">
             Field is required
           </span>
-          <span *ngIf="createForm.get('image').errors?.pattern">
-            URL is not valid
-          </span>
           <span *ngIf="createForm.get('image').errors?.maxlength">
             Maximum lenght is 2 048 characters
+          </span>
+          <span *ngIf="createForm.get('image').errors?.isUrl && createForm.get('image').value != ''">
+            URL is not valid
           </span>
         </div>
       </div>
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="form-row">
-        <button type="submit">Create</button>
+        <button type="submit" [disabled]="!createForm.valid">Create</button>
       </div>
     </div>
   </div>

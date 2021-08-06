@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { IBook } from '../../interfaces/book';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -19,8 +20,8 @@ export class UserService {
   // tslint:disable-next-line: typedef
   configureOptions() {
     let headers = new HttpHeaders({
-      'X-Parse-Application-Id': 'BCrUQVkk80pCdeImSXoKXL5ZCtyyEZwbN7mAb11f',
-      'X-Parse-REST-API-Key': 'swrFFIXJlFudtF3HkZPtfybDFRTmS7sPwvGUzQ9w',
+      'X-Parse-Application-Id': 'dFxIY2XnTxo9DSNikYonqUYtpMgqieDC16TOt7Aw',
+      'X-Parse-REST-API-Key': 'mNJF3iuWeDCMDRyFwGrDhrtthmQWE7OpWmgF9SEm',
       'Content-Type': 'application/json'
     });
 
@@ -34,13 +35,18 @@ export class UserService {
     return options;
   }
 
-  // tslint:disable-next-line: typedef
-  create(content: { name: string, image: string, content: string }) {
-    return this.http.post<IBook>(`${this.serverURL}/users`, content, this.configureOptions());
+  getAllBooks(): Observable<IBook[]> {
+    return this.http.get<IBook[]>(`${this.serverURL}/classes/Books`, this.configureOptions()).pipe(
+      map(books => Object.values(books))
+    );
   }
 
-  // tslint:disable-next-line: typedef
-  edit(content: { name: string, image: string, content: string }) {
+  create(content: { name: string, image: string, content: string, userId: string }, userId: string): Observable<IBook> {
+    content.userId = userId;
+    return this.http.post<IBook>(`${this.serverURL}/classes/Books`, content, this.configureOptions());
+  }
+
+  edit(content: { name: string, image: string, content: string }): Observable<IBook> {
     return this.http.put<IBook>(`${this.serverURL}/users`, content, this.configureOptions());
   }
 }

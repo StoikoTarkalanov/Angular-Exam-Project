@@ -3,6 +3,7 @@ import { IUser } from '../../interfaces/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,14 +31,14 @@ export class AuthService {
   // tslint:disable-next-line: typedef
   configureOptions() {
     let headers = new HttpHeaders({
-      'X-Parse-Application-Id': 'BCrUQVkk80pCdeImSXoKXL5ZCtyyEZwbN7mAb11f',
-      'X-Parse-REST-API-Key': 'swrFFIXJlFudtF3HkZPtfybDFRTmS7sPwvGUzQ9w',
+      'X-Parse-Application-Id': 'dFxIY2XnTxo9DSNikYonqUYtpMgqieDC16TOt7Aw',
+      'X-Parse-REST-API-Key': 'mNJF3iuWeDCMDRyFwGrDhrtthmQWE7OpWmgF9SEm',
+      'X-Parse-Revocable-Session': '1',
       'Content-Type': 'application/json'
     });
 
     const token = this.isUserLogged;
     if (token != null) {
-      // console.log(token);
       headers = headers.set('X-Parse-Session-Token', `${token}`);
     }
 
@@ -45,8 +46,7 @@ export class AuthService {
     return options;
   }
 
-  // tslint:disable-next-line: typedef
-  register(content: { username: string, password: string }) {
+  register(content: { username: string, password: string }): Observable<IUser> {
     return this.http.post<IUser>(`${this.serverURL}/users`, content, this.configureOptions()).pipe(
       tap(user => {
         this.user = user;
@@ -57,8 +57,7 @@ export class AuthService {
     );
   }
 
-  // tslint:disable-next-line: typedef
-  login(content: { username: string, password: string }) {
+  login(content: { username: string, password: string }): Observable<IUser> {
     return this.http.post<IUser>(`${this.serverURL}/login`, content, this.configureOptions()).pipe(
       tap(user => {
         this.user = user;
@@ -69,14 +68,14 @@ export class AuthService {
     );
   }
 
-  // tslint:disable-next-line: typedef
-  logout() {
+  logout(): Observable<IUser> {
     return this.http.post<IUser>(`${this.serverURL}/logout`, {}, this.configureOptions()).pipe(
       tap(user => {
         this.user = null;
+        // window.localStorage.clear();
         sessionStorage.removeItem('username');
-        sessionStorage.removeItem('AuthToken');
         sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('AuthToken');
       })
     );
   }

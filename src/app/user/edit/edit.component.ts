@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { urlValidator } from 'src/app/shared/services/validators';
 
@@ -10,9 +10,9 @@ import { urlValidator } from 'src/app/shared/services/validators';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
   editForm: FormGroup;
-  killSubscription = new Subject();
+  killSubscription!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,8 +23,8 @@ export class EditComponent implements OnInit {
   // tslint:disable-next-line: max-line-length
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      image: ['', [Validators.required, Validators.maxLength(2048), Validators.pattern('^https?:\/\/'), urlValidator()]],
+      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(80)]],
+      image: ['', [Validators.required, Validators.maxLength(2048), urlValidator()]],
       content: ['', [Validators.required, Validators.minLength(200), Validators.maxLength(4000)]],
     });
   }
@@ -33,7 +33,7 @@ export class EditComponent implements OnInit {
     if (this.editForm.invalid) {
       return;
     }
-    this.userService.edit(this.editForm.value).subscribe({
+    this.killSubscription = this.userService.edit(this.editForm.value).subscribe({
       next: () => {
         this.router.navigate(['/']);
       },
@@ -43,9 +43,9 @@ export class EditComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line: use-lifecycle-interface
   ngOnDestroy(): void {
-    this.killSubscription.next();
-    this.killSubscription.complete();
+    if (this.editForm.valid) {
+    this.killSubscription.unsubscribe();
+    }
   }
 }

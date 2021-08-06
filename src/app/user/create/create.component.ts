@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user/user.service';
+import { urlValidator } from 'src/app/shared/services/validators';
 
 @Component({
   selector: 'app-create',
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 })
 export class CreateComponent implements OnInit, OnDestroy {
   createForm: FormGroup;
-  killSubscription = new Subject();
+  killSubscription!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,8 +22,8 @@ export class CreateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
-      image: ['', [Validators.required, Validators.maxLength(2048), Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
+      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(80)]],
+      image: ['', [Validators.required, Validators.maxLength(2048), urlValidator()]],
       content: ['', [Validators.required, Validators.minLength(200), Validators.maxLength(4000)]],
     });
   }
@@ -31,7 +32,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     if (this.createForm.invalid) {
       return;
     }
-    this.userService.create(this.createForm.value).subscribe({
+    this.killSubscription = this.userService.create(this.createForm.value, sessionStorage.getItem('userId')).subscribe({
       next: () => {
         this.router.navigate(['/']);
       },
@@ -42,7 +43,8 @@ export class CreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.killSubscription.next();
-    this.killSubscription.complete();
+    if (this.createForm.valid) {
+      this.killSubscription.unsubscribe();
+    }
   }
 }

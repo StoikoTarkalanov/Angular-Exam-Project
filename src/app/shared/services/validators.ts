@@ -8,7 +8,8 @@ export function passwordValidator(getTargetControl: () => AbstractControl | null
   // tslint:disable-next-line: only-arrow-functions typedef
   return function(control: AbstractControl) {
     if (subscription) {
-      subscription.unsubscribe(); subscription = null;
+      subscription.unsubscribe();
+      subscription = null;
     }
     const targetControl = getTargetControl();
     if (!targetControl) {
@@ -29,7 +30,6 @@ export function passwordValidator(getTargetControl: () => AbstractControl | null
 
     return targetControl?.value === control?.value ? null : { isMatch: true };
   };
-
 }
 
 // tslint:disable-next-line: typedef

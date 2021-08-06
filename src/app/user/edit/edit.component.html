@@ -12,7 +12,7 @@
             Field is required
           </span>
           <span *ngIf="editForm.get('name').errors?.maxlength">
-            Maximum lenght is 40 characters
+            Maximum lenght is 80 characters
           </span>
           <span *ngIf="editForm.get('name').errors?.minlength">
             Minimum lenght is 4 characters
@@ -26,7 +26,7 @@
           <span *ngIf="editForm.get('image').errors?.required">
             Field is required
           </span>
-          <span *ngIf="editForm.get('image').errors?.isUrl">
+          <span *ngIf="editForm.get('image').errors?.isUrl && editForm.get('image').value != ''">
             URL is not valid
           </span>
           <span *ngIf="editForm.get('image').errors?.maxlength">
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="form-row">
-        <button type="submit">Edit</button>
+        <button type="submit" [disabled]="!editForm.valid">Edit</button>
       </div>
     </div>
   </div>
