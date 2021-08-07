@@ -25,7 +25,7 @@ const routes: Routes = [
     component: MyBooksComponent,
   },
   {
-    path: 'edit', // add ID
+    path: 'edit/:id',
     component: EditComponent
   }
 ];

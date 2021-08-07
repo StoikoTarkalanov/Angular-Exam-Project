@@ -32,7 +32,12 @@ export class CreateComponent implements OnInit, OnDestroy {
     if (this.createForm.invalid) {
       return;
     }
-    this.killSubscription = this.userService.create(this.createForm.value, sessionStorage.getItem('userId')).subscribe({
+    const userData = {
+      userId: sessionStorage.getItem('userId'),
+      username: sessionStorage.getItem('username')
+    };
+    this.createForm.value.userData = userData;
+    this.killSubscription = this.userService.create(this.createForm.value).subscribe({
       next: () => {
         this.router.navigate(['/']);
       },

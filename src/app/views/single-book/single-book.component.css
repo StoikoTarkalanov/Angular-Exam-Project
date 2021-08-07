@@ -1,3 +1,7 @@
+.block-wrap {
+  word-wrap: break-word;
+}
+
 .justify-center {
   text-align: center;
 }

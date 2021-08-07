@@ -3,16 +3,12 @@
     <div class="col-md-10 col-lg-8 col-xl-7">
 
       <!-- Post preview-->
-      <div class="post-preview" *ngFor="let book of books">
-        <a routerLink="/single-book">
-          <h2 class="post-title">{{book}}</h2>
-          <a routerLink="/single-book"><img class="img-fluid" src="assets/img/post-sample-image.jpg" alt="..." /></a>
+      <div class="post-preview" *ngFor="let book of books?.results">
+        <a [routerLink]="['/single-book', book.objectId]">
+          <h2 class="post-title">{{ book.name }}</h2>
+          <a [routerLink]="['/single-book', book.objectId]"><img class="img-fluid" src="{{ book.image }}" alt="Image..." /></a>
         </a>
-        <p class="post-meta">
-          Posted by
-          Start Bootstrap
-          on September 24, 2021
-        </p>
+        <p class="post-meta">Posted by {{ book.userData.username }} on {{ book.updatedAt | date }}</p>
         <!-- Divider-->
         <hr class="my-4" />
       </div>

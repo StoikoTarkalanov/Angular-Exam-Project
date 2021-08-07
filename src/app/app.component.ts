@@ -9,9 +9,9 @@ import { AuthService } from './shared/services/auth/auth.service';
 export class AppComponent {
   title = 'Exam-Project';
 
-  get isAuth(): boolean {
-    return this.authService.user === undefined;
-  }
+  // get isAuth(): boolean {
+  //   return this.authService.user === undefined;
+  // }
 
   constructor(private authService: AuthService) {
   }
