@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { urlValidator } from 'src/app/shared/services/validators';
@@ -12,15 +12,16 @@ import { urlValidator } from 'src/app/shared/services/validators';
 })
 export class EditComponent implements OnInit, OnDestroy {
   editForm: FormGroup;
+  bookId = this.route.snapshot.paramMap.get('id');
   killSubscription!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
-  // tslint:disable-next-line: max-line-length
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(80)]],
@@ -33,9 +34,9 @@ export class EditComponent implements OnInit, OnDestroy {
     if (this.editForm.invalid) {
       return;
     }
-    this.killSubscription = this.userService.edit(this.editForm.value).subscribe({
+    this.killSubscription = this.userService.edit(this.bookId, this.editForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        this.router.navigate([`/single-book/${this.bookId}`]);
       },
       error: (err) => {
         console.error(err);
@@ -45,7 +46,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.editForm.valid) {
-    this.killSubscription.unsubscribe();
+      this.killSubscription.unsubscribe();
     }
   }
 }

@@ -17,7 +17,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'create-book', // add ID
+    path: 'create-book',
     component: CreateComponent
   },
   {

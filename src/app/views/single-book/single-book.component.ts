@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IBook } from 'src/app/shared/interfaces';
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
   templateUrl: './single-book.component.html',
   styleUrls: ['./single-book.component.css']
 })
-export class SingleBookComponent implements OnInit, OnDestroy {
+export class SingleBookComponent implements OnInit, OnDestroy, AfterViewInit {
   killSubscription!: Subscription;
   book: IBook;
   bookId = this.route.snapshot.paramMap.get('id');
@@ -32,15 +32,26 @@ export class SingleBookComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void {
+    if (this.book?.userData.userId === this.userId) {
+      document.getElementById('adm-element').style.display = 'block';
+    } else {
+      document.getElementById('adm-element').style.display = 'none';
+    }
+  }
+
   onDelete(): void {
-    this.killSubscription = this.userService.delete(this.bookId).subscribe({
-      next: () => {
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+    const confirmed = confirm('Are you sure you want to delete this book?');
+    if (confirmed) {
+      this.killSubscription = this.userService.delete(this.bookId).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {

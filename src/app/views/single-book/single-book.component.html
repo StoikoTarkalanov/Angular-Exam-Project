@@ -3,11 +3,10 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <h2 class="section-heading">{{ book?.name }}</h2>
-        <!-- <p></p> -->
         <div class="block-wrap">{{ book?.content }}</div>
       </div>
     </div>
-    <div class="justify-center" *ngIf="book?.userData.userId === userId">
+    <div id="adm-element" class="justify-center" *ngIf="book?.userData.userId === userId">
       <hr class="my-4" />
       <a class="edit" [routerLink]="['/edit', book?.objectId]">Edit</a>
       <a class="delete" (click)="onDelete()">Delete</a>

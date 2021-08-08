@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ViewModule } from '../views/view.module';
 import { UserRoutingModule } from './user-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -20,8 +21,9 @@ import { EditComponent } from './edit/edit.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    UserRoutingModule
+    UserRoutingModule,
+    ViewModule
   ],
-  providers: []
+  providers: [ViewModule]
 })
 export class UserModule { }

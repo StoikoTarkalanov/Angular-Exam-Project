@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IBook } from '../../interfaces/book';
 import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { switchMap } from 'rxjs/operators';
 
@@ -10,11 +10,11 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-
   serverURL = environment.serverURL;
+
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   // tslint:disable-next-line: typedef
@@ -47,8 +47,8 @@ export class UserService {
     return this.http.post<IBook>(`${this.serverURL}/classes/Books`, content, this.configureOptions());
   }
 
-  edit(content: { name: string, image: string, content: string }): Observable<IBook> {
-    return this.http.put<IBook>(`${this.serverURL}/users`, content, this.configureOptions()); // not working
+  edit(id: string, content: { name: string, image: string, content: string }): Observable<IBook> {
+    return this.http.put<IBook>(`${this.serverURL}/classes/Books/${id}`, content, this.configureOptions()); // not working
   }
 
   delete(id: string): Observable<IBook> {
