@@ -6,8 +6,8 @@ export interface IBook {
   createdAt: string;
   updatedAt: string;
   objectId: string;
-  userData: {
-    userId: string;
-    username: string;
+  createdBy: string;
+  owner: {
+    objectId: string;
   };
 }

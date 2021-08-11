@@ -1,18 +1,16 @@
 <div class="container px-4 px-lg-5">
   <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
-
       <!-- Post preview-->
       <div class="post-preview" *ngFor="let book of books?.results">
         <a [routerLink]="['/single-book', book.objectId]">
           <h2 class="post-title">{{ book.name }}</h2>
           <a [routerLink]="['/single-book', book.objectId]"><img class="img-fluid" src="{{ book.image }}" alt="Image..." /></a>
         </a>
-        <p class="post-meta">Posted by {{ book.userData.username }} on {{ book.updatedAt | date }}</p>
+        <p class="post-meta">Posted by {{ book.createdBy | titlecase }} on {{ book.updatedAt | date }}</p>
         <!-- Divider-->
         <hr class="my-4" />
       </div>
-
       <!-- Pager-->
       <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase"
           routerLink="/single-book">Next Page →</a>

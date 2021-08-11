@@ -32,11 +32,6 @@ export class CreateComponent implements OnInit, OnDestroy {
     if (this.createForm.invalid) {
       return;
     }
-    const userData = {
-      userId: sessionStorage.getItem('userId'),
-      username: sessionStorage.getItem('username')
-    };
-    this.createForm.value.userData = userData;
     this.killSubscription = this.userService.create(this.createForm.value).subscribe({
       next: (book) => {
         this.router.navigate([`/single-book/${book.objectId}`]);

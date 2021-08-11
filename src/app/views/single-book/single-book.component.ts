@@ -33,7 +33,7 @@ export class SingleBookComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.book?.userData.userId === this.userId) {
+    if (this.book?.owner.objectId === this.userId) {
       document.getElementById('adm-element').style.display = 'block';
     } else {
       document.getElementById('adm-element').style.display = 'none';
@@ -45,7 +45,7 @@ export class SingleBookComponent implements OnInit, OnDestroy, AfterViewInit {
     if (confirmed) {
       this.killSubscription = this.userService.delete(this.bookId).subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/my-books']);
         },
         error: (err) => {
           console.error(err);

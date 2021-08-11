@@ -6,7 +6,7 @@
         <div class="block-wrap">{{ book?.content }}</div>
       </div>
     </div>
-    <div id="adm-element" class="justify-center" *ngIf="book?.userData.userId === userId">
+    <div id="adm-element" class="justify-center" *ngIf="book?.owner.objectId === userId">
       <hr class="my-4" />
       <a class="edit" [routerLink]="['/edit', book?.objectId]">Edit</a>
       <a class="delete" (click)="onDelete()">Delete</a>

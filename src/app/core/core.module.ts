@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
-import { AuthActivate } from './guards/auth.activate';
 
 @NgModule({
   declarations: [
@@ -15,9 +14,7 @@ import { AuthActivate } from './guards/auth.activate';
     CommonModule,
     RouterModule,
   ],
-  providers: [
-    AuthActivate
-  ],
+  providers: [],
   exports: [
     NavigationComponent,
     FooterComponent
