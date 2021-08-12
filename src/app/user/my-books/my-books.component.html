@@ -3,19 +3,17 @@
     <div class="col-md-10 col-lg-8 col-xl-7">
       <h2 class="text-center">My Books</h2>
       <hr class="my-4" />
-      <div class="post-preview" *ngFor="let book of books?.results">
+      <div class="post-preview" *ngFor="let book of books?.results | paginate: { itemsPerPage: 2, currentPage: page }">
         <a [routerLink]="['/single-book', book.objectId]">
           <h2 class="post-title">{{ book.name }}</h2>
           <a [routerLink]="['/single-book', book.objectId]"><img class="img-fluid" src="{{ book.image }}"
               alt="Image..." /></a>
         </a>
-        <p class="post-meta">Posted by {{ book.owner.username }} on {{ book.updatedAt | date }}</p>
+        <p class="post-meta">Posted by {{ book.createdBy }} on {{ book.createdAt | date }}</p>
         <!-- Divider-->
         <hr class="my-4" />
       </div>
-      <!-- Pager-->
-      <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Next Page →</a>
-      </div>
+      <pagination-controls class="paginator-position" (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>

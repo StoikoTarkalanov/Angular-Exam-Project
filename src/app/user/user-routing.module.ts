@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditComponent,
-    canActivate: [LoggedUserGuard]
+    canActivate: [GuestUserGuard]
   }
 ];
 

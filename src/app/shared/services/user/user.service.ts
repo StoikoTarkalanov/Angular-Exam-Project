@@ -56,8 +56,9 @@ export class UserService {
     return this.http.get<IBook>(`${this.serverURL}/classes/Books?where=${encodeURIComponent(query)}`, this.configureOptions());
   }
 
-  create(content: { name: string, image: string, content: string, owner }): Observable<IBook> {
+  create(content: { name: string, image: string, content: string, owner, createdBy }): Observable<IBook> {
     content.owner = this.createPointer();
+    content.createdBy = sessionStorage.getItem('username');
     return this.http.post<IBook>(`${this.serverURL}/classes/Books`, content, this.configureOptions());
   }
 

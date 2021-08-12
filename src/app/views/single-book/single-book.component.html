@@ -8,7 +8,7 @@
     </div>
     <div id="adm-element" class="justify-center" *ngIf="book?.owner.objectId === userId">
       <hr class="my-4" />
-      <a class="edit" [routerLink]="['/edit', book?.objectId]">Edit</a>
+      <a class="edit" [routerLink]="['/edit', bookId]">Edit</a>
       <a class="delete" (click)="onDelete()">Delete</a>
     </div>
   </div>

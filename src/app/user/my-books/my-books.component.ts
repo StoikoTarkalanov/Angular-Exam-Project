@@ -12,6 +12,7 @@ export class MyBooksComponent implements OnInit, OnDestroy {
   killSubscription!: Subscription;
   books: IBook;
   haveBookCheck: boolean;
+  page = 1;
 
   constructor(
     private userService: UserService

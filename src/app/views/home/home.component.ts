@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IBook } from 'src/app/shared/interfaces';
 import { UserService } from 'src/app/shared/services/user/user.service';
@@ -11,6 +11,8 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 export class HomeComponent implements OnInit, OnDestroy {
   killSubscription!: Subscription;
   books: IBook;
+  haveBookCheck: boolean;
+  page = 1;
 
   constructor(
     private userService: UserService
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.killSubscription = this.userService.getAllBooks().subscribe({
       next: (books) => {
         this.books = books;
+        this.haveBookCheck = books?.results.length > 0 ? true : false;
       },
       error: (err) => {
         console.error(err);
@@ -28,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.books.results.length > 0) {
+    if (this.books?.results.length > 0) {
       this.killSubscription.unsubscribe();
     }
   }
