@@ -4,13 +4,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
 import { ViewModule } from './views/view.module';
-import { SharedModule } from './shared/shared.module';
+import { NetworkLoadInterceptor } from './shared/interceptors/network-load/network-load.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -21,13 +22,15 @@ import { SharedModule } from './shared/shared.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     CoreModule,
-    SharedModule,
     HttpClientModule,
     UserModule,
     ViewModule,
+    MatProgressSpinnerModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: NetworkLoadInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,6 +16,9 @@
     </div>
   </div>
 </div>
+<div class="spinner" *ngIf="loading | async">
+  <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
+</div>
 <div *ngIf="!haveBookCheck">
   <h2 class="text-center">Home Page</h2>
   <hr class="my-4" />

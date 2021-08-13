@@ -10,7 +10,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
   templateUrl: './single-book.component.html',
   styleUrls: ['./single-book.component.css']
 })
-export class SingleBookComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SingleBookComponent implements OnInit, OnDestroy {
   killSubscription!: Subscription;
   book: IBook;
   bookId = this.route.snapshot.paramMap.get('id');
@@ -38,14 +38,6 @@ export class SingleBookComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.dataService.changeData(this.data);
-  }
-
-  ngAfterViewInit(): void {
-    if (this.book?.owner.objectId === this.userId) {
-      document.getElementById('adm-element').style.display = 'block';
-    } else {
-      document.getElementById('adm-element').style.display = 'none';
-    }
   }
 
   onDelete(): void {

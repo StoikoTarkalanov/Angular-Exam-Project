@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IBook } from 'src/app/shared/interfaces';
+import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
@@ -13,9 +14,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   books: IBook;
   haveBookCheck: boolean;
   page = 1;
+  loading = this.loader.currentLoad;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    public loader: LoadingService
   ) { }
 
   ngOnInit(): void {

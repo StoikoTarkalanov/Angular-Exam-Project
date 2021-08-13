@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   killSubscription = new Subject();
+  serverError = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +39,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.error(err);
+        this.serverError = err.error.error.slice(0, -1);
+        if (this.serverError !== '') {
+          setTimeout(() => { this.serverError = ''; }, 3000);
+        }
       }
     });
   }

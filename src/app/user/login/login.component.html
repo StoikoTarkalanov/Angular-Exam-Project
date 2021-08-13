@@ -33,6 +33,11 @@
       </div>
       <div class="form-row">
         <button type="submit" [disabled]="!loginForm.valid">Login</button>
+        <div class="error-message">
+          <span *ngIf="serverError != ''">
+            {{serverError}}
+          </span>
+        </div>
       </div>
       <a routerLink="/register" class="form-log-in-with-existing">Don't have account? Register here &rarr;</a>
     </div>

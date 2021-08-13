@@ -46,6 +46,11 @@
       </div>
       <div class="form-row">
         <button type="submit" [disabled]="!registerForm.valid">Register</button>
+        <div class="error-message">
+          <span *ngIf="serverError != ''">
+            {{serverError}}
+          </span>
+        </div>
       </div>
       <a routerLink="/login" class="form-log-in-with-existing">Already have an account? Login here &rarr;</a>
     </div>

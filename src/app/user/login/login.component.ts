@@ -10,8 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
   killSubscription = new Subject();
+  loginForm: FormGroup;
+  serverError = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +37,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.error(err);
+        this.serverError = err.error.error.slice(0, -1).replace('/', ' or ');
+        if (this.serverError !== '') {
+          setTimeout(() => { this.serverError = ''; }, 3000);
+        }
       }
     });
   }

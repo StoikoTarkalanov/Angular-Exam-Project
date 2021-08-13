@@ -2,8 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-// tslint:disable-next-line: typedef
-export function passwordValidator(getTargetControl: () => AbstractControl | null, killSubscriptions: Observable<any>) {
+export function passwordValidator(getTargetControl: () => AbstractControl | null, killSubscriptions: Observable<any>): ValidatorFn {
   let subscription: Subscription | null = null;
   // tslint:disable-next-line: only-arrow-functions typedef
   return function(control: AbstractControl) {
@@ -32,7 +31,6 @@ export function passwordValidator(getTargetControl: () => AbstractControl | null
   };
 }
 
-// tslint:disable-next-line: typedef
 export function urlValidator(): ValidatorFn {
 
   return (control: AbstractControl): ValidationErrors | null => {
@@ -45,7 +43,3 @@ export function urlValidator(): ValidatorFn {
     return { isUrl: true };
   };
 }
-
-
-
-
