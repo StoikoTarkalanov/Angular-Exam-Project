@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { MyBooksComponent } from './my-books/my-books.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EditComponent } from './edit/edit.component';
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedModule
   ],
   providers: []
 })

@@ -11,7 +11,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 export class MyBooksComponent implements OnInit, OnDestroy {
   killSubscription!: Subscription;
   books: IBook;
-  haveBookCheck: boolean;
+  haveBookCheck: string;
   page = 1;
 
   constructor(
@@ -22,10 +22,7 @@ export class MyBooksComponent implements OnInit, OnDestroy {
     this.killSubscription = this.userService.getUserBooks().subscribe({
       next: (books) => {
         this.books = books;
-        this.haveBookCheck = books?.results.length > 0 ? true : false;
-      },
-      error: (err) => {
-        console.error(err);
+        this.haveBookCheck = books?.results.length > 0 ? 'true' : 'false';
       }
     });
   }

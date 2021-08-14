@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IBook } from 'src/app/shared/interfaces';
-import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
@@ -12,23 +11,18 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 export class HomeComponent implements OnInit, OnDestroy {
   killSubscription!: Subscription;
   books: IBook;
-  haveBookCheck: boolean;
+  haveBookCheck: string;
   page = 1;
-  loading = this.loader.currentLoad;
 
   constructor(
-    private userService: UserService,
-    public loader: LoadingService
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.killSubscription = this.userService.getAllBooks().subscribe({
       next: (books) => {
         this.books = books;
-        this.haveBookCheck = books?.results.length > 0 ? true : false;
-      },
-      error: (err) => {
-        console.error(err);
+        this.haveBookCheck = this.books?.results.length > 0 ? 'true' : 'false';
       }
     });
   }

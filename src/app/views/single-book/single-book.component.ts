@@ -15,6 +15,7 @@ export class SingleBookComponent implements OnInit, OnDestroy {
   book: IBook;
   bookId = this.route.snapshot.paramMap.get('id');
   userId = sessionStorage.getItem('userId');
+  isOwner;
   data = { name: '', image: '', content: '' };
 
   constructor(
@@ -31,9 +32,8 @@ export class SingleBookComponent implements OnInit, OnDestroy {
         this.data.name = book.name;
         this.data.image = book.image;
         this.data.content = book.content;
-      },
-      error: (err) => {
-        console.error(err);
+
+        this.isOwner = this.book?.owner.objectId === this.userId;
       }
     });
 
@@ -46,9 +46,6 @@ export class SingleBookComponent implements OnInit, OnDestroy {
       this.killSubscription = this.userService.delete(this.bookId).subscribe({
         next: () => {
           this.router.navigate(['/my-books']);
-        },
-        error: (err) => {
-          console.error(err);
         }
       });
     }

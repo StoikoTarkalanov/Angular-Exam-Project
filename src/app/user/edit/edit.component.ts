@@ -42,9 +42,6 @@ export class EditComponent implements OnInit, OnDestroy {
     this.killSubscription = this.userService.edit(this.bookId, this.editForm.value).subscribe({
       next: () => {
         this.router.navigate([`/single-book/${this.bookId}`]);
-      },
-      error: (err) => {
-        console.error(err);
       }
     });
   }

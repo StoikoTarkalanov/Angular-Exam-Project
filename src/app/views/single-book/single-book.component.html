@@ -6,10 +6,12 @@
         <div class="block-wrap">{{ book?.content }}</div>
       </div>
     </div>
-    <div id="adm-element" class="justify-center" *ngIf="book?.owner.objectId === userId">
+    <div id="adm-element" class="justify-center" *ngIf="isOwner">
       <hr class="my-4" />
       <a class="edit" [routerLink]="['/edit', bookId]">Edit</a>
       <a class="delete" (click)="onDelete()">Delete</a>
     </div>
   </div>
 </article>
+
+<app-spinner></app-spinner>

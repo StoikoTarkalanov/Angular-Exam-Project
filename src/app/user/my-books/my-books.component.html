@@ -1,4 +1,4 @@
-<div class="container px-4 px-lg-5" *ngIf="haveBookCheck">
+<div class="container px-4 px-lg-5" *ngIf="haveBookCheck == 'true'">
   <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
       <h2 class="text-center">My Books</h2>
@@ -9,7 +9,10 @@
           <a [routerLink]="['/single-book', book.objectId]"><img class="img-fluid" src="{{ book.image }}"
               alt="Image..." /></a>
         </a>
-        <p class="post-meta">Posted by {{ book.createdBy }} on {{ book.createdAt | date }}</p>
+        <p class="post-meta">
+          Posted by {{ book.createdBy }} on {{ book.createdAt | date }}
+          <span *ngIf="book.updatedAt != book.createdAt">| Last Update on {{ book.updatedAt | date }}</span>
+        </p>
         <!-- Divider-->
         <hr class="my-4" />
       </div>
@@ -17,7 +20,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="!haveBookCheck">
+<div *ngIf="haveBookCheck == 'false'">
   <h2 class="text-center">My Books</h2>
   <hr class="my-4" />
   <p class="text-center">
@@ -27,3 +30,5 @@
     If you want to create book click <a routerLink="/create-book">here!</a>
   </p>
 </div>
+
+<app-spinner></app-spinner>

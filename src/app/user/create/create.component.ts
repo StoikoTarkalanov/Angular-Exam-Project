@@ -35,9 +35,6 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.killSubscription = this.userService.create(this.createForm.value).subscribe({
       next: (book) => {
         this.router.navigate([`/single-book/${book.objectId}`]);
-      },
-      error: (err) => {
-        console.error(err);
       }
     });
   }

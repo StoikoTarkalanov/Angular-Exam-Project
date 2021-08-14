@@ -15,10 +15,6 @@ export class AuthService {
     return sessionStorage.getItem('AuthToken');
   }
 
-  get isUser(): boolean { // temp
-    return true;
-  }
-
   get username(): string {
     return sessionStorage.getItem('username');
   }
@@ -72,7 +68,6 @@ export class AuthService {
     return this.http.post<IUser>(`${this.serverURL}/logout`, {}, this.configureOptions()).pipe(
       tap(user => {
         this.user = null;
-        // window.localStorage.clear();
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('AuthToken');

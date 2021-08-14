@@ -12,10 +12,11 @@ import { finalize } from 'rxjs/operators';
 @Injectable()
 export class NetworkLoadInterceptor implements HttpInterceptor {
 
-  constructor(private loader: LoadingService) {}
+  constructor(private loader: LoadingService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loader.show();
+
     return next.handle(request).pipe(
       finalize(() => {
         this.loader.hide();
